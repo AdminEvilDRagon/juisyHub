@@ -1,0 +1,72 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+OrionLib:MakeNotification({
+	Name = "Juisy hub - shoot wall sim",
+	Content = "Juisy hub loading...",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+
+
+local Window = OrionLib:MakeWindow({Name = "Juisy hub", HidePremium = false, SaveConfig = true, ConfigFolder = "Orion"})
+
+
+
+local mainTab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local playerTab = Window:MakeTab({
+	Name = "Player",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local mainSection = mainTab:AddSection({
+	Name = "main"
+})
+
+local playerSection = playerTab:AddSection({
+	Name = "player"
+})
+
+
+mainSection:AddButton({
+	Name = "give OP pet",
+	Callback = function()
+        local args = {
+            [1] = game:GetService("Players").LocalPlayer,
+            [2] = 3,
+            [3] = {
+                ["1_Fox"] = {
+                    ["rarity"] = "Common",
+                    ["tier"] = "Normal",
+                    ["name"] = "Fox",
+                    ["equipped"] = false,
+                    ["multiplier"] = 100000000
+                }
+            }
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("TradeSystem"):WaitForChild("Remotes"):WaitForChild("LocalPlayerChangeStatus"):FireServer(unpack(args))
+  	end    
+})
+
+
+
+PlayerSection:AddSlider({
+	Name = "Walkspeed",
+	Min = 16,
+	Max = 100,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Walkspeed",
+	Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+	end    
+})
+
+OrionLib:Init() 
